@@ -48,30 +48,32 @@ class RidePrefsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-
               // 2 - THE FORM
               RidePrefForm(initRidePref: RidePrefsService.selectedRidePref),
               SizedBox(height: BlaSpacings.m),
 
-              // 3 - THE HISTORY 
-              SizedBox(
-                height: 200, // Set a fixed height
-                child: ListView.builder(
-                  shrinkWrap: true, // Fix ListView height issue
-                  physics: AlwaysScrollableScrollPhysics(),
-                  itemCount: RidePrefsService.ridePrefsHistory.length,
-                  itemBuilder: (ctx, index) => RidePrefsTile(
-                    ridePref: RidePrefsService.ridePrefsHistory[index],
-                    onPressed: () => onRidePrefSelected(
-                      RidePrefsService.ridePrefsHistory[index],
-                    ),
-                  ),
-                ),
-              ),
+              // 3 - THE HISTORY
+              _buildHistory(),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildHistory() {
+    return SizedBox(
+      height: 200, // Set a fixed height
+      child: ListView.builder(
+        shrinkWrap: true, // Fix ListView height issue
+        physics: AlwaysScrollableScrollPhysics(),
+        itemCount: RidePrefsService.ridePrefsHistory.length,
+        itemBuilder: (ctx, index) => RidePrefsTile(
+          ridePref: RidePrefsService.ridePrefsHistory[index],
+          onPressed: () =>
+              onRidePrefSelected(RidePrefsService.ridePrefsHistory[index]),
+        ),
+      ),
     );
   }
 
